@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo "build static files"
 
@@ -12,21 +12,20 @@ then
     exit 0
 fi
 
-echo "deploy "$site
+echo "build "$site
 
 cd "$site"
 for d in */ ; do
-    cd $d
-    if [ `echo $child| grep -c "vue" ` -gt 0 ]
+    if [ `echo $d| grep -c "vue" ` -gt 0 ]
+    then
         cd "vue"
         echo "build vue"
         npm run build
-    then
     fi
-    if [ `echo $child| grep -c "hugo" ` -gt 0 ]
+    if [ `echo $d| grep -c "hugo" ` -gt 0 ]
+    then
         cd "hugo"
         echo "build hugo"
         hugo
-    then
     fi
 done
